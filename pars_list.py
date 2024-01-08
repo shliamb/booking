@@ -3,6 +3,7 @@ import requests
 
 #
 url = "https://booking-com15.p.rapidapi.com/api/v1/hotels/searchHotels"
+page = 1
 querystring = {
     "dest_id": "900048236",
     "search_type": "CITY",
@@ -11,7 +12,7 @@ querystring = {
     "adults": "1",
     "children_age": "0",
     "room_qty": "1",
-    "page_number": "5",
+    "page_number": page,
     "languagecode": "en-us",
     "currency_code": "IDR"
 }
@@ -28,12 +29,18 @@ data = response.json()
 with open('hotels.csv', mode='w', newline='', encoding='utf-8') as file:
     writer = csv.writer(file)
     # Заголовки для CSV файла
-    writer.writerow(['Hotel_id', ''])
+    writer.writerow(['id', 'hotel_id', 'hotel_name', 'strikethroughPrice', 'grossPrice', 'currency'])
 
+    id = 0
     # Перебор данных и запись в CSV
-    for item in data['data']['hotels']:  # Используй 'data' и 'hotels'
-        hotel_id = item['hotel_id']
-        writer.writerow([hotel_id])
+    for item in data['data']['hotels']:
+        id = id + 1
+        hotel_id = item.get('hotel_id')
+        hotel_name = item['property']['name']
+        strikethroughPrice = item['property']['priceBreakdown'].get('strikethroughPrice', {}).get('value')
+        grossPrice = item.get('property', {}).get('priceBreakdown', {}).get('grossPrice', {}).get('value')
+        currency = item['property']['currency']
+        writer.writerow([id, hotel_id, hotel_name, strikethroughPrice, grossPrice, currency])
 
 print("Данные сохранены в hotels.csv")
 
