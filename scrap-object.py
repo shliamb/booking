@@ -1,15 +1,23 @@
-import requests, json, time
+import json
+import requests
 from bs4 import BeautifulSoup
+import time
+#from selenium import webdriver
 
-url = "https://www.booking.com/searchresults.html?ss=canggu&ssne=Goa&ssne_untouched=Goa&label=gen173nr-1FCAQoggJCC3JlZ2lvbl80MTI3SDFYBGhoiAEBmAExuAEZyAEM2AEB6AEB-AEDiAIBqAIDuAKmgO-sBsACAdICJDRkYjc0MDJlLWE1ZjEtNGM4NC05ZTQ4LWUwMzZlOTYzNThiNtgCBeACAQ&aid=304142&lang=en-us&sb=1&src_elem=sb&src=searchresults&dest_id=900048236&dest_type=city&ac_position=0&ac_click_type=b&ac_langcode=en&ac_suggestion_list_length=5&search_selected=true&search_pageview_id=d8995b2b165200fa&ac_meta=GhBkODk5NWIyYjE2NTIwMGZhIAAoATICZW46BmNhbmdndUAASgBQAA%3D%3D&checkin=2024-01-10&checkout=2024-01-13&group_adults=1&no_rooms=1&group_children=0"
-page = ''
+url = "https://www.booking.com/searchresults.html?ss=Canggu&ssne=Canggu&ssne_untouched=Canggu&label=gen173nr-1FCAQoggJCC3JlZ2lvbl80MTI3SDFYBGhoiAEBmAExuAEZyAEM2AEB6AEB-AEDiAIBqAIDuAKmgO-sBsACAdICJDRkYjc0MDJlLWE1ZjEtNGM4NC05ZTQ4LWUwMzZlOTYzNThiNtgCBeACAQ&aid=304142&lang=en-us&sb=1&src_elem=sb&src=searchresults&dest_id=900048236&dest_type=city&checkin=2024-01-10&checkout=2024-01-13&group_adults=1&no_rooms=1&group_children=0"
+#page = ''
 #page = '&offset=50'
 #внизу пояснения
+# Имитация заголовков браузера
 headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36",
-}
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
 
-response = requests.get(url, page, headers=headers)
+
+# Для JavaScript используй selenium
+# driver = webdriver.Chrome()
+# driver.get(url)
+
+response = requests.get(url, headers=headers)
 soup = BeautifulSoup(response.content, 'html.parser')
 
 # Находите элементы на странице, используя soup.find() или soup.find_all()
@@ -39,3 +47,5 @@ print(json_data)
 
 
 
+
+# driver.quit()
