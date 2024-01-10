@@ -5,7 +5,7 @@
 #НАДО:
 #фильтры протестить в url
 
-import json
+#import json
 import requests
 from bs4 import BeautifulSoup
 #import time
